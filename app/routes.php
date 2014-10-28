@@ -11,7 +11,24 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', [
+    'uses' => 'HomeController@showWelcome',
+    'as' => 'home',
+    'before' => 'auth'
+]);
+
+Route::get('/login', [
+    'uses' => 'AuthController@showLogin',
+    'as' => 'login',
+    'before' => 'guest'
+]);
+
+Route::post('/login', [
+    'uses' => 'AuthController@login',
+    'before' => 'csrf'
+]);
+
+Route::get('/logout', [
+    'uses' => 'AuthController@logout',
+    'as' => 'logout'
+]);
