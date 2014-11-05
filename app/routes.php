@@ -11,6 +11,8 @@
 |
 */
 
+Route::resource('/timer', 'TimerController');
+
 Route::get('/', [
     'uses' => 'HomeController@showWelcome',
     'as' => 'home',
