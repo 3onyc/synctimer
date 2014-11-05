@@ -11,7 +11,11 @@
 |
 */
 
-Route::resource('/timer', 'TimerController');
+Route::get('/timers/fullscreen', [
+    'uses' => 'TimerController@fullscreen',
+    'as' => 'timers.fullscreen'
+]);
+Route::resource('/timers', 'TimerController');
 
 Route::get('/', [
     'uses' => 'HomeController@showWelcome',

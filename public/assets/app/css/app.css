@@ -1,3 +1,16 @@
 #time-remaining {
     font-size: 15rem;
 }
+
+button.unstyled {
+    border : 0;
+    border-radius:0;
+    background-color: transparent;
+    color: #008CBA;
+    margin: 0;
+    padding: 0;
+}
+
+button.unstyled:focus, button.unstyled:hover {
+    color: #0078A0;
+}

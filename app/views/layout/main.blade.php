@@ -3,10 +3,11 @@
   <head>
     <title>SyncTimer</title>
     @section('stylesheets')
-      <link rel="stylesheet" href="/assets/foundation/css/normalize.css">
-      <link rel="stylesheet" href="/assets/foundation/css/foundation.css">
+      <link rel="stylesheet" href="/assets/foundation/css/normalize.css" />
+      <link rel="stylesheet" href="/assets/foundation/css/foundation.css" />
+      <link rel="stylesheet" href="/assets/foundation-icon-fonts/foundation-icons.css" />
 
-      <link rel="stylesheet" href="/assets/app/css/app.css">
+      <link rel="stylesheet" href="/assets/app/css/app.css" />
     @show
 
     <script src="/assets/foundation/js/vendor/modernizr.js"></script>
