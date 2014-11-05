@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"x3tech/laravel-shipper": "~0.1",
+		"x3tech/laravel-shipper": "~0.2",
 		"pda/pheanstalk": "~2.0"
 	},
 	"autoload": {
