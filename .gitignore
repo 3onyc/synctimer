@@ -8,3 +8,5 @@ composer.lock
 Thumbs.db
 fig.yml
 Dockerfile
+/public/assets/*
+!/public/assets/app

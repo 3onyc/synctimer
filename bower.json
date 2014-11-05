@@ -1,0 +1,21 @@
+{
+  "name": "synctimer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/3onyc/synctimer",
+  "description": "Synchronized Countdown and stopwatch timers across devices",
+  "keywords": [
+    "Laravel"
+  ],
+  "authors": [
+    "3onyc"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
