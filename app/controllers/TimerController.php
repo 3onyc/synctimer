@@ -45,7 +45,15 @@ class TimerController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return View::make('timer.show');
+		$timer = Timer::find($id);
+		if (!$timer) {
+			App::abort(404);
+		}
+
+		return View::make('timer.show', [
+			'timer' => $timer,
+			'diff' => $this->getDiff($timer)->format('%H:%I:%S')
+		]);
 	}
 
 
@@ -82,5 +90,20 @@ class TimerController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	/**
+	 * Get a DateInterval with the difference between now and Timer::target
+	 *
+	 * @param Timer $timer
+	 *
+	 * @return DateInterval
+	 */
+	protected function getDiff(Timer $timer)
+	{
+		$now = new DateTimeImmutable;
+		$target = new DateTimeImmutable($timer->target);
+
+		return $target->diff($now, true);
 	}
 }

@@ -1,5 +1,14 @@
-#time-remaining {
-    font-size: 15rem;
+.timer-big .name {
+	font-size: 8rem;
+}
+
+.timer-big .timer {
+	font-size: 15rem;
+	font-weight: bold;
+}
+
+.timer-big .target {
+	font-size: 2rem;
 }
 
 button.unstyled {
