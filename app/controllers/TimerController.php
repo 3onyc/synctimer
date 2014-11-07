@@ -45,7 +45,7 @@ class TimerController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return View::make('timer.show');
 	}
 
 
@@ -83,9 +83,4 @@ class TimerController extends \BaseController {
 	{
 		//
 	}
-
-    public function fullscreen()
-    {
-        return View::make('timer.fullscreen');
-    }
 }

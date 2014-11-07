@@ -31,11 +31,6 @@
               {{ $timer->target }}
             </td>
             <td>
-              <a href='{{ action("TimerController@fullscreen", $timer->id) }}'>
-                <i class='fi-projection-screen'></i>
-              </a>
-            </td>
-            <td>
               <a href='{{ action("TimerController@edit", $timer->id) }}'>
                 <i class='fi-pencil'></i>
               </a>
