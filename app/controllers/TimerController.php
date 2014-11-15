@@ -43,15 +43,15 @@ class TimerController extends \BaseController
      */
     public function store()
     {
-        $formView = TimerFormView::fromInput(Input::only(self::$fields));
-        $validator = $formView->validator();
+        $input = Input::only(self::$fields);
+        $validator = TimerFormValidator::make($input);
 
         if ($validator->fails()) {
-            Session::flashInput($formView->getFormData());
+            Session::flashInput($input);
             return $this->create($validator->messages());
         }
 
-        $formView->getModel()->save();
+        Timer::fromInput($input)->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
@@ -65,13 +65,8 @@ class TimerController extends \BaseController
      */
     public function show($id)
     {
-        $timer = Timer::find($id);
-        if (!$timer) {
-            App::abort(404);
-        }
-
         return View::make('timer.show', [
-            'timer' => $timer
+            'timer' => Timer::findOrFail($id)
         ]);
     }
 
@@ -86,7 +81,7 @@ class TimerController extends \BaseController
     {
         $timer = Timer::findOrFail($id);
 
-        Session::flashInput(TimerFormView::formData($timer));
+        Session::flashInput($timer->getFormData());
         return View::make('timer.edit', [
             'errors' => $errors ?: new MessageBag,
             'id' => $timer->id
@@ -103,15 +98,16 @@ class TimerController extends \BaseController
     public function update($id)
     {
         $timer = Timer::findOrFail($id);
-        $formView = TimerFormView::fromInput(Input::only(self::$fields), $timer);
-        $validator = $formView->validator();
+        $input = Input::only(self::$fields);
 
+        $validator = TimerFormValidator::make($input);
         if ($validator->fails()) {
-            Session::flashInput($formView->getFormData());
+            Session::flashInput($timer->getFormData());
             return $this->edit($id, $validator->messages());
         }
 
-        $formView->getModel()->save();
+        $timer->fillFromInput($input);
+        $timer->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
@@ -141,12 +137,11 @@ class TimerController extends \BaseController
     public function resetStopwatch($id)
     {
         $timer = Timer::findOrFail($id);
-        if ($timer->type !== Timer::STOPWATCH) {
+        if (! $timer instanceof Stopwatch) {
             App::abort(400);
         }
 
-        $timer->target = new DateTime;
-        $timer->save();
+        $timer->reset();
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
