@@ -16,7 +16,7 @@ Route::any('/', function() {
 });
 
 Route::resource('/timers', 'TimerController');
-Route::post('/timers/{id}/reset', [
+Route::post('/timers/{timers}/reset', [
     'uses' => 'TimerController@resetStopwatch'
 ]);
 
