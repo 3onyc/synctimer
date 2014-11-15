@@ -3,6 +3,8 @@
   <head>
     <title>SyncTimer</title>
     @section('stylesheets')
+      <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+
       <link rel="stylesheet" href="/assets/foundation/css/normalize.css" />
       <link rel="stylesheet" href="/assets/foundation/css/foundation.css" />
       <link rel="stylesheet" href="/assets/foundation-datepicker/stylesheets/foundation-datepicker.css" />
