@@ -32,7 +32,7 @@
     </p>
     <p>
       {{ Form::token() }}
-      {{ Form::submit() }}
+      {{ Form::button('Save', ['type' => 'submit', 'class' => 'expand']) }}
     </p>
   </div>
 </div>
