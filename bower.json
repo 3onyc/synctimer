@@ -21,6 +21,9 @@
   "dependencies": {
     "moment": "~2.8.3",
     "foundation": "~5.4.7",
-    "foundation-icon-fonts": "*"
+    "foundation-icon-fonts": "*",
+    "foundation-datepicker": "1.0.0",
+    "sprintf.js": "1.0.2",
+    "FitText.js": "~1.2.0"
   }
 }

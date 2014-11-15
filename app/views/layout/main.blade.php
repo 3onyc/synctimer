@@ -5,6 +5,7 @@
     @section('stylesheets')
       <link rel="stylesheet" href="/assets/foundation/css/normalize.css" />
       <link rel="stylesheet" href="/assets/foundation/css/foundation.css" />
+      <link rel="stylesheet" href="/assets/foundation-datepicker/stylesheets/foundation-datepicker.css" />
       <link rel="stylesheet" href="/assets/foundation-icon-fonts/foundation-icons.css" />
 
       <link rel="stylesheet" href="/assets/app/css/app.css" />
@@ -29,8 +30,11 @@
     @yield('content')
 
     @section('scripts')
+      <script src="/assets/moment/moment.js"></script>
       <script src="/assets/foundation/js/vendor/jquery.js"></script>
       <script src="/assets/foundation/js/foundation.min.js"></script>
+      <script src="/assets/foundation-datepicker/js/foundation-datepicker.js"></script>
+      <script src="/assets/app/js/app.js"></script>
       <script>
         $(document).foundation();
       </script>
