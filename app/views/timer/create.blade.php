@@ -43,6 +43,6 @@
 @section('scripts')
   @parent
 
-  <script src="/assets/app/js/timer.js"></script>
-  <script>SyncTimer.Timer.Edit.Init();</script>
+  <script src="/assets/app/js/edit.js"></script>
+  <script>SyncTimerEdit.Init();</script>
 @stop
