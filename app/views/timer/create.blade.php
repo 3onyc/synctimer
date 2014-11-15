@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-  {{ Form::model($form, ['action' => 'TimerController@store']) }}
+  {{ Form::open(['action' => 'TimerController@store']) }}
     @include('timer.form')
   {{ Form::close() }}
 @stop
