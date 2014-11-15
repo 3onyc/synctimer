@@ -1,7 +1,7 @@
 var SyncTimerEdit = (function($) {
     function Init() {
         var $type = $("#type"),
-            $target = $("#target-date"),
+            $target = $("#target_date"),
             $targetWrapper = $("#target-wrapper");
 
         function updateTargetVisibility()

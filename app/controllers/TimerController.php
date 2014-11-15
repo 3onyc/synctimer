@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Support\MessageBag;
+
 class TimerController extends \BaseController
 {
+    private static $fields = [ 'name', 'type', 'target_date', 'target_time' ];
+
     public function __construct()
     {
         $this->beforeFilter('auth', array('except' => 'show'));
@@ -26,12 +30,9 @@ class TimerController extends \BaseController
      */
     public function create($errors = null)
     {
-        $view = [];
-        if ($errors) {
-            $view['errors'] = $errors;
-        }
-
-        return View::make('timer.create', $view);
+        return View::make('timer.create', [
+            'errors' => $errors ?: new MessageBag
+        ]);
     }
 
 
@@ -42,26 +43,15 @@ class TimerController extends \BaseController
      */
     public function store()
     {
-        $input = Input::only(['name', 'type', 'target-date', 'target-time']);
-        $validator = TimerFormValidator::make($input);
+        $formView = TimerFormView::fromInput(Input::only(self::$fields));
+        $validator = $formView->validator();
 
         if ($validator->fails()) {
-            Session::flashInput($input);
+            Session::flashInput($formView->getFormData());
             return $this->create($validator->messages());
         }
 
-        if ($input['type'] === Timer::STOPWATCH) {
-            $target = new DateTime;
-        } elseif ($input['type'] === Timer::COUNTDOWN) {
-            $dateTimeString = $input['target-date'] . ' ' . $input['target-time'];
-            $target = DateTime::createFromFormat("Y-m-d H:i:s", $dateTimeString);
-        }
-
-        $timer = Timer::create([
-            'name' => $input['name'],
-            'type' => $input['type'],
-            'target' => $target
-        ]);
+        $formView->getModel()->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
@@ -81,8 +71,7 @@ class TimerController extends \BaseController
         }
 
         return View::make('timer.show', [
-            'timer' => $timer,
-            'diff' => $this->getDiff($timer)->format('%H:%I:%S.000')
+            'timer' => $timer
         ]);
     }
 
@@ -93,9 +82,15 @@ class TimerController extends \BaseController
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, $errors = null)
     {
-        //
+        $timer = Timer::findOrFail($id);
+
+        Session::flashInput(TimerFormView::formData($timer));
+        return View::make('timer.edit', [
+            'errors' => $errors ?: new MessageBag,
+            'id' => $timer->id
+        ]);
     }
 
 
@@ -107,7 +102,18 @@ class TimerController extends \BaseController
      */
     public function update($id)
     {
-        //
+        $timer = Timer::findOrFail($id);
+        $formView = TimerFormView::fromInput(Input::only(self::$fields), $timer);
+        $validator = $formView->validator();
+
+        if ($validator->fails()) {
+            Session::flashInput($formView->getFormData());
+            return $this->edit($id, $validator->messages());
+        }
+
+        $formView->getModel()->save();
+
+        return Redirect::to(action('TimerController@show', $timer->id));
     }
 
 
@@ -143,20 +149,5 @@ class TimerController extends \BaseController
         $timer->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
-    }
-
-    /**
-     * Get a DateInterval with the difference between now and Timer::target
-     *
-     * @param Timer $timer
-     *
-     * @return DateInterval
-     */
-    protected function getDiff(Timer $timer)
-    {
-        $now = new DateTimeImmutable;
-        $target = new DateTimeImmutable($timer->target);
-
-        return $target->diff($now, true);
     }
 }

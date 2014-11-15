@@ -1,5 +1,5 @@
 <?php
-class TimerFormValidator
+abstract class TimerFormValidator
 {
     public static function make(array $input)
     {
@@ -8,8 +8,8 @@ class TimerFormValidator
             [
                 'name' => ['required', 'min:4'],
                 'type' => ['required', 'in:countdown,stopwatch'],
-                'target-date' => ['date_format:Y-m-d', 'required_if:type,countdown'],
-                'target-time' => ['date_format:H:i:s', 'required_if:type,countdown']
+                'target_date' => ['date_format:Y-m-d', 'required_if:type,countdown'],
+                'target_time' => ['date_format:H:i:s', 'required_if:type,countdown']
             ]
         );
 
