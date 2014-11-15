@@ -1,0 +1,22 @@
+{
+  "name": "synctimer",
+  "version": "0.1.0",
+  "description": "Cross-device synchronized timers",
+  "dependencies": {
+    "webpack": "^1.4.13"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/3onyc/synctimer.git"
+  },
+  "keywords": [
+    "laravel"
+  ],
+  "author": "3onyc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3onyc/synctimer/issues"
+  },
+  "homepage": "https://github.com/3onyc/synctimer"
+}

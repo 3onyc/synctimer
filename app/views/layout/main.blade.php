@@ -36,7 +36,6 @@
       <script src="/assets/foundation/js/vendor/jquery.js"></script>
       <script src="/assets/foundation/js/foundation.min.js"></script>
       <script src="/assets/foundation-datepicker/js/foundation-datepicker.js"></script>
-      <script src="/assets/app/js/app.js"></script>
       <script>
         $(document).foundation();
       </script>

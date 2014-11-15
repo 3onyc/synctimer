@@ -10,3 +10,5 @@ fig.yml
 Dockerfile
 /public/assets/*
 !/public/assets/app
+/public/assets/app/js/compiled/*
+!/public/assets/app/js/compiled/.gitkeep
