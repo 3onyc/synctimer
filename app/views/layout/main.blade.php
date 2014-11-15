@@ -22,7 +22,7 @@
       </ul>
       <section class='top-bar-section'>
         <ul class='left'>
-          <li><a href='#'>Timers</a></li>
+          <li><a href='{{ action('TimerController@index') }}'>Timers</a></li>
         </ul>
       </section>
     </nav>
