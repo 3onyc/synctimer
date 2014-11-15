@@ -4,6 +4,7 @@
   <div id="timer"
        class='timer-big'
        data-timer
+       data-timer-big
        data-timer-name='{{ $timer->name }}'
        data-timer-type='{{ $timer->type }}'
        data-timer-target='{{ $timer->target }}'

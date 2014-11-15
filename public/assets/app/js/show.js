@@ -1,9 +1,3 @@
-var Timer = require('./class/Timer'),
-    BigTimerRenderer = require('./class/BigTimerRenderer');
+var MultiTimerRenderer = require('./class/MultiTimerRenderer');
 
-$("div[data-timer]").each(function() {
-    var timer = Timer.FromElement(this),
-        timerRenderer = new BigTimerRenderer(timer, this);
-
-    timerRenderer.run();
-});
+MultiTimerRenderer.fromPage().start();

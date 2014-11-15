@@ -11,8 +11,15 @@ body {
 	font-size: 8rem;
 }
 
-.timer-big .timer {
+.timer-container {
+    text-align: right;
+}
+
+.timer {
     font-family: 'Droid Sans Mono', monospace;
+}
+
+.timer-big .timer {
 	font-size: 14rem;
 	font-weight: bold;
 }

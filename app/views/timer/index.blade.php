@@ -16,6 +16,7 @@
             <th>Name</th>
             <th>Type</th>
             <th>Start/Stop Time</th>
+            <th>Current</th>
             <th colspan='3'</th>
           </tr>
         </thead>
@@ -29,6 +30,14 @@
             <td>{{ $timer->type }}</td>
             <td>
               {{ $timer->target }}
+            </td>
+            <td class='timer-container'
+                data-timer
+                data-timer-name='{{ $timer->name }}'
+                data-timer-target='{{ $timer->target }}'
+                data-timer-type='{{ $timer->type }}'
+            >
+              <span class='timer'>
             </td>
             <td>
               <a href='{{ action("TimerController@edit", $timer->id) }}'>
@@ -50,4 +59,12 @@
       </table>
     </div>
   </div>
+@stop
+
+@section('scripts')
+  @parent
+
+  <script src='/assets/FitText.js/jquery.fittext.js'></script>
+  <script src='/assets/sprintf.js/dist/sprintf.min.js'></script>
+  <script src='/assets/app/js/compiled/show.js'></script>
 @stop
