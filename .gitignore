@@ -12,3 +12,4 @@ Dockerfile
 !/public/assets/app
 /public/assets/app/js/compiled/*
 !/public/assets/app/js/compiled/.gitkeep
+node_modules
