@@ -6,8 +6,19 @@ node_modules:
 js: node_modules
 	webpack -w public/assets/app/js/show.js public/assets/app/js/compiled/show.js
 
-dev:
+build:
 	fig build
+
+init: build
+	fig run --rm app ./artisan migrate
+	fig run --rm app ./artisan db:seed
+
+dev: init
 	fig up
 
-.PHONY: dev js default
+clean:
+	rm -rf node_modules
+	fig kill
+	fig rm --force
+
+.PHONY: dev init build js default clean
