@@ -3,7 +3,7 @@ var Timer = require('./class/Timer'),
 
 $("div[data-timer]").each(function() {
     var timer = Timer.FromElement(this),
-        timerRenderer = new BigTimerRenderer(timer);
+        timerRenderer = new BigTimerRenderer(timer, this);
 
     timerRenderer.run();
 });
