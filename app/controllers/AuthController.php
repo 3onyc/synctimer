@@ -33,7 +33,7 @@ class AuthController extends \BaseController
             ]);
         }
 
-        return Redirect::intended(route('home'));
+        return Redirect::intended(route('timers.index'));
     }
 
     /**

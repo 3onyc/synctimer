@@ -11,15 +11,13 @@
 |
 */
 
+Route::any('/', function() {
+	return Redirect::to(action('TimerController@index'));
+});
+
 Route::resource('/timers', 'TimerController');
 Route::post('/timers/{id}/reset', [
     'uses' => 'TimerController@resetStopwatch'
-]);
-
-Route::get('/', [
-    'uses' => 'HomeController@showWelcome',
-    'as' => 'home',
-    'before' => 'auth'
 ]);
 
 Route::get('/login', [
