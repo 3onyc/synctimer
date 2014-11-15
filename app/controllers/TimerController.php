@@ -2,6 +2,10 @@
 
 class TimerController extends \BaseController
 {
+    public function __construct()
+    {
+        $this->beforeFilter('auth', array('except' => 'show'));
+    }
     /**
      * Display a listing of the resource.
      *

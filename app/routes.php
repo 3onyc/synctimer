@@ -12,10 +12,8 @@
 */
 
 Route::resource('/timers', 'TimerController');
-
 Route::post('/timers/{id}/reset', [
-    'uses' => 'TimerController@resetStopwatch',
-    'before' => 'auth'
+    'uses' => 'TimerController@resetStopwatch'
 ]);
 
 Route::get('/', [
