@@ -35,6 +35,13 @@ BigTimerRenderer.prototype.renderStatic = function() {
 };
 
 BigTimerRenderer.prototype.render = function() {
+    if (this.timer.isExpired()) {
+        this.$timer.text(util.formatDuration(moment.duration()));
+        this.stop();
+
+        return;
+    }
+
     this.$timer.text(util.formatDuration(this.timer.getDifference()));
 };
 

@@ -12,6 +12,14 @@ Timer.prototype.getDifference = function() {
     return moment.duration(Math.abs(this.target.diff(moment())));
 };
 
+Timer.prototype.isExpired = function() {
+    if (this.type !== "countdown") {
+        return false;
+    }
+
+    return moment().isAfter(this.target);
+};
+
 Timer.FromElement = function(elem) {
     var $elem = $(elem);
 
