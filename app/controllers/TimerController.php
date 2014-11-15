@@ -119,7 +119,10 @@ class TimerController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        $timer = Timer::findOrFail($id);
+        $timer->delete();
+
+        return Redirect::to(action('TimerController@index'));
     }
 
 
