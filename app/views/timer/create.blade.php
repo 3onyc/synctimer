@@ -23,7 +23,10 @@
           ], null, ['required' => 'required']) }}
         </p>
         <p>
-          <small>@if ($errors->has('target')) {{ $errors->first('target') }} @endif</small>
+          <small>@if ($errors->has('target-date')) {{ $errors->first('target-date') }} @endif</small>
+        </p>
+        <p>
+          <small>@if ($errors->has('target-time')) {{ $errors->first('target-time') }} @endif</small>
         </p>
         <p id="target-wrapper">
           {{ Form::label('target-date', 'Date') }}
