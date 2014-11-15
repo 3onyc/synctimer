@@ -20,7 +20,7 @@
       @endif
       <span class='target-iso'>...</span>
     </h3>
-    @if ($timer->type == Timer::STOPWATCH)
+    @if (Auth::check() && $timer->type == Timer::STOPWATCH)
       {{ Form::open(['action' => ['TimerController@resetStopwatch', $timer->id]]) }}
         <p>
           {{ Form::token() }}
