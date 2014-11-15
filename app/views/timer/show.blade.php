@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-  <div class='timer-big text-center'>
+  <div class='timer-big'>
     <h1 class='name'>{{ $timer->name }}</h1>
     <h2 class='timer'>...</h2>
     <h3 class='target'>
