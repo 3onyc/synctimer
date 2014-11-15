@@ -51,7 +51,8 @@ class TimerController extends \BaseController
             return $this->create($validator->messages());
         }
 
-        Timer::fromInput($input)->save();
+        $timer = Timer::fromInput($input);
+        $timer->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
