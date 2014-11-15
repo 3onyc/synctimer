@@ -52,7 +52,7 @@ BigTimerRenderer.prototype.run = function() {
 
 BigTimerRenderer.prototype.stop = function() {
     if (this.intervalHandle !== null) {
-        clearInterval(intervalHandle);
+        clearInterval(this.intervalHandle);
         this.intervalHandle = null;
     }
 };
