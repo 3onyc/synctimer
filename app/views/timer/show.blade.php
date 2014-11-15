@@ -26,7 +26,7 @@
       {{ Form::open(['action' => ['TimerController@resetStopwatch', $timer->id]]) }}
         <p>
           {{ Form::token() }}
-          {{ Form::submit('Reset') }}
+          {{ Form::button('Reset', ['type' => 'submit', 'class' => 'alert']) }}
         </p>
       {{ Form::close() }}
     @endif
