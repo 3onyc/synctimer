@@ -3,16 +3,18 @@
 @section('stylesheets')
   @parent
 
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+
   <script>
-    window.targetTime = "{{ $timer->target }}";
+    window.targetTime = '{{ $timer->target }}';
   </script>
 @stop
 
 @section('content')
-  <div class="timer-big">
-    <h1 class='name text-left'>{{ $timer->name }}</h1>
-    <h2 class='timer text-center'>...</h2>
-    <h3 class='target text-right'>
+  <div class='timer-big text-center'>
+    <h1 class='name'>{{ $timer->name }}</h1>
+    <h2 class='timer'>...</h2>
+    <h3 class='target'>
       @if ($timer->type == Timer::STOPWATCH)
         Stopwatch Started At
       @elseif ($timer->type == Timer::COUNTDOWN)
