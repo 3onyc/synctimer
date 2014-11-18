@@ -42,4 +42,9 @@ class Timer extends Eloquent
 
         return $timer;
     }
+
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

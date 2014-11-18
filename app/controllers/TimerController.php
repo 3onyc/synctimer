@@ -18,7 +18,7 @@ class TimerController extends \BaseController
     public function index()
     {
         return View::make('timer.index', [
-            'timers' => Timer::all()
+            'timers' => Auth::user()->timers
         ]);
     }
 
@@ -52,7 +52,7 @@ class TimerController extends \BaseController
         }
 
         $timer = Timer::fromInput($input);
-        $timer->save();
+        Auth::user()->timers()->save($timer);
 
         return Redirect::to(action('TimerController@show', $timer->id));
     }
@@ -80,7 +80,7 @@ class TimerController extends \BaseController
      */
     public function edit($id, $errors = null)
     {
-        $timer = Timer::findOrFail($id);
+        $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
 
         Session::flashInput($timer->getFormData());
         return View::make('timer.edit', [
@@ -98,7 +98,7 @@ class TimerController extends \BaseController
      */
     public function update($id)
     {
-        $timer = Timer::findOrFail($id);
+        $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
         $input = Input::only(self::$fields);
 
         $validator = TimerFormValidator::make($input);
@@ -122,7 +122,7 @@ class TimerController extends \BaseController
      */
     public function destroy($id)
     {
-        $timer = Timer::findOrFail($id);
+        $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
         $timer->delete();
 
         return Redirect::to(action('TimerController@index'));
@@ -137,7 +137,7 @@ class TimerController extends \BaseController
      */
     public function resetStopwatch($id)
     {
-        $timer = Timer::findOrFail($id);
+        $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
         if (! $timer instanceof Stopwatch) {
             App::abort(400);
         }
