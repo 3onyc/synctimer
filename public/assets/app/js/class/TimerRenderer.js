@@ -40,6 +40,7 @@ TimerRenderer.prototype.renderStatic = function() {
 TimerRenderer.prototype.render = function() {
     if (this.timer.isExpired()) {
         this.$timer.text(util.formatDuration(moment.duration()));
+        return;
     }
 
     this.$timer.text(util.formatDuration(this.timer.getDifference()));
