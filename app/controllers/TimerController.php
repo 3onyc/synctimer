@@ -2,9 +2,11 @@
 
 use Illuminate\Support\MessageBag;
 
-class TimerController extends \BaseController
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
+class TimerController extends BaseController
 {
-    private static $fields = [ 'name', 'type', 'target_date', 'target_time' ];
+    private static $fields = ['name', 'type', 'target_date', 'target_time', 'private'];
 
     public function __construct()
     {
@@ -43,7 +45,7 @@ class TimerController extends \BaseController
      */
     public function store()
     {
-        $input = Input::only(self::$fields);
+        $input = $this->getInput();
         $validator = TimerFormValidator::make($input);
 
         if ($validator->fails()) {
@@ -66,8 +68,13 @@ class TimerController extends \BaseController
      */
     public function show($id)
     {
+        $timer = Timer::findOrFail($id);
+        if ($timer->private && $timer->user != Auth::user()) {
+            throw new AccessDeniedHttpException;
+        }
+
         return View::make('timer.show', [
-            'timer' => Timer::findOrFail($id)
+            'timer' => $timer
         ]);
     }
 
@@ -99,7 +106,8 @@ class TimerController extends \BaseController
     public function update($id)
     {
         $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
-        $input = Input::only(self::$fields);
+
+        $input = $this->getInput();
 
         $validator = TimerFormValidator::make($input);
         if ($validator->fails()) {
@@ -145,5 +153,13 @@ class TimerController extends \BaseController
         $timer->reset();
 
         return Redirect::to(action('TimerController@show', $timer->id));
+    }
+
+    protected function getInput()
+    {
+        $input = Input::only(static::$fields);
+        $input['private'] = isset($input['private']);
+
+        return $input;
     }
 }

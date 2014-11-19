@@ -16,6 +16,7 @@ class Stopwatch extends Timer
         return [
             'name' => $this->name,
             'type' => $this->type,
+            'private' => $this->private,
             'target_date' => null,
             'target_time' => null
         ];

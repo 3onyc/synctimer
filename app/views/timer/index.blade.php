@@ -13,6 +13,7 @@
       <table>
         <thead>
           <tr>
+            <th><i class='fi-lock'></i></th>
             <th>Name</th>
             <th>Type</th>
             <th>Start/Stop Time</th>
@@ -22,6 +23,13 @@
         </thead>
         @foreach ($timers as $timer)
           <tr>
+            <td>
+              @if ($timer->private)
+                <i class='fi-check'></i>
+              @else
+                <i class='fi-x'></i>
+              @endif
+            </td>
             <td>
               <a href='{{ action("TimerController@show", $timer->id) }}'>
                 {{ $timer->name }}

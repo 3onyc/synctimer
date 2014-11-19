@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ App::missing(function($exception)
 App::error(function(ModelNotFoundException $exception)
 {
 	return Response::view('errors.missing', [], 404);
+});
+
+App::error(function(AccessDeniedHttpException $exception) {
+	return Response::view('errors.denied', [], 403);
 });
 
 /*

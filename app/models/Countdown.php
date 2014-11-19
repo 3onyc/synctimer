@@ -8,6 +8,7 @@ class Countdown extends Timer
         return [
             'name' => $this->name,
             'type' => $this->type,
+            'private' => $this->private,
             'target_date' => $target_date,
             'target_time' => $target_time
         ];

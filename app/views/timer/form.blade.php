@@ -31,6 +31,10 @@
       {{ Form::text('target_time') }}
     </p>
     <p>
+      {{ Form::checkbox('private', 'true', true) }}
+      {{ Form::label('private', 'Private') }}
+    </p>
+    <p>
       {{ Form::token() }}
       {{ Form::button('Save', ['type' => 'submit', 'class' => 'expand']) }}
     </p>
