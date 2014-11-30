@@ -5,6 +5,7 @@ class Timer extends Eloquent
     const STOPWATCH = 'stopwatch';
 
     protected $fillable = ['name', 'type', 'target', 'private'];
+    protected $hidden = ['user_id'];
 
 	/**
 	 * @var string
