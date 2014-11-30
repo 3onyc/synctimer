@@ -80,7 +80,9 @@ abstract class TimerView
 
         $view = clone $this;
 
-        $view->target = $view->target->copy()->addMinutes($this->offset);
+        if ($view->target) {
+            $view->target = $view->target->copy()->addMinutes($this->offset);
+        }
         $view->local = false;
         $view->offset = 0;
 
