@@ -1,20 +1,30 @@
 <?php
 class CountdownViewFactory
 {
-    public function forForm(Countdown $countdown)
+    /**
+     * @var Countdown
+     */
+    protected $countdown;
+
+    public function __construct(Countdown $countdown)
     {
-        return CountdownView::forForm($countdown);
+        $this->countdown = $countdown;
     }
-    public function fill(Countdown $countdown, array $input)
+
+    public function forForm()
     {
-        return CountdownView::fill($countdown, $input);
+        return CountdownView::forForm($this->countdown);
     }
-    public function fromForm(array $input)
+    public function fill(array $input)
     {
-        return CountdownView::fromForm($input);
+        return CountdownView::fill($this->countdown, $input);
     }
-    public function fromModel(Countdown $countdown)
+    public function fromForm(array $input, $offset = 0)
     {
-        return CountdownView::fromModel($countdown);
+        return CountdownView::fromForm($input, $offset);
+    }
+    public function fromModel()
+    {
+        return CountdownView::fromModel($this->countdown);
     }
 }

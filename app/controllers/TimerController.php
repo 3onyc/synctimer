@@ -19,8 +19,12 @@ class TimerController extends BaseController
      */
     public function index()
     {
+        $views = array_map(function (Timer $timer) {
+            return $timer->view()->getLocal(Session::get('offset'));
+        }, Auth::user()->timers->all());
+
         return View::make('timer.index', [
-            'timers' => Auth::user()->timers
+            'timers' => $views
         ]);
     }
 
@@ -54,7 +58,11 @@ class TimerController extends BaseController
         }
 
         $timer = Timer::factory($input['type']);
-        $timer->fillFromForm($input);
+        $timer
+            ->getViewFactory()
+            ->fromForm($input, Session::get('offset'))
+            ->getUTC()
+            ->fill($timer);
 
         Auth::user()->timers()->save($timer);
 
@@ -76,7 +84,7 @@ class TimerController extends BaseController
         }
 
         return View::make('timer.show', [
-            'timer' => $timer->view()
+            'timer' => $timer->view()->getLocal(Session::get('offset'))
         ]);
     }
 
@@ -91,7 +99,7 @@ class TimerController extends BaseController
     {
         $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
 
-        Session::flashInput($timer->toForm());
+        Session::flashInput($timer->view()->getLocal(Session::get('offset'))->toForm());
         return View::make('timer.edit', [
             'errors' => $errors ?: new MessageBag,
             'id' => $timer->id
@@ -117,7 +125,12 @@ class TimerController extends BaseController
             return $this->edit($id, $validator->messages());
         }
 
-        $timer->fillFromForm($input);
+        $timer
+            ->getViewFactory()
+            ->fromForm($input, Session::get('offset'))
+            ->getUTC()
+            ->fill($timer);
+
         $timer->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));

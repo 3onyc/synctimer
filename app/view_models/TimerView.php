@@ -28,6 +28,22 @@ abstract class TimerView
      */
     public $private;
 
+    /**
+     * @var bool
+     */
+    private $local;
+
+    /**
+     * @var int
+     */
+    private $offset;
+
+    public function __construct()
+    {
+        $this->local = false;
+        $this->offset = 0;
+    }
+
     public function toForm()
     {
         list($targetDate, $targetTime) = explode(' ', $this->target->format('Y-m-d H:i:s'));
@@ -39,6 +55,36 @@ abstract class TimerView
             'target_date' => $targetDate,
             'target_time' => $targetTime
         ];
+    }
+
+    public function getLocal($offset)
+    {
+        if ($this->local) {
+            throw new RuntimeException("View already in Local timezone");
+        }
+
+        $view = clone $this;
+
+        $view->target = $view->target->copy()->subMinutes($offset);
+        $view->local = true;
+        $view->offset = $offset;
+
+        return $view;
+    }
+
+    public function getUTC()
+    {
+        if (!$this->local) {
+            throw new RuntimeException("View already in UTC timezone");
+        }
+
+        $view = clone $this;
+
+        $view->target = $view->target->copy()->addMinutes($this->offset);
+        $view->local = false;
+        $view->offset = 0;
+
+        return $view;
     }
 
     public function toArray()
@@ -57,17 +103,20 @@ abstract class TimerView
         return static::fromModel($timer)->toForm();
     }
 
-    public static function fill(Timer $timer, array $input)
+    public function fill(Timer $timer)
     {
-        $timer->fill(static::fromForm($input)->toArray());
+        $timer->fill($this->toArray());
     }
 
-    public static function fromForm(array $input)
+    public static function fromForm(array $input, $offset = 0)
     {
         $view = new static();
         $view->name = $input['name'];
         $view->type = $input['type'];
         $view->private = isset($input['private']);
+
+        $view->local = $offset != 0;
+        $view->offset = $offset;
 
         return $view;
     }

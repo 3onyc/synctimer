@@ -19,6 +19,6 @@ class Stopwatch extends Timer
 
     public function getViewFactory()
     {
-        return new StopwatchViewFactory;
+        return new StopwatchViewFactory($this);
     }
 }

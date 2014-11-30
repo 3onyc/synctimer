@@ -1,20 +1,30 @@
 <?php
 class StopwatchViewFactory
 {
-    public function forForm(Stopwatch $stopwatch)
+    /**
+     * @var Stopwatch
+     */
+    protected $stopwatch;
+
+    public function __construct(Stopwatch $stopwatch)
     {
-        return StopwatchView::forForm($stopwatch);
+        $this->stopwatch = $stopwatch;
     }
-    public function fill(Stopwatch $stopwatch, array $input)
+
+    public function forForm()
     {
-        return StopwatchView::fill($stopwatch, $input);
+        return StopwatchView::forForm($this->stopwatch);
     }
-    public function fromForm(array $input)
+    public function fill(array $input)
     {
-        return StopwatchView::fromForm($input);
+        return StopwatchView::fill($this->stopwatch, $input);
     }
-    public function fromModel(Stopwatch $stopwatch)
+    public function fromForm(array $input, $offset = 0)
     {
-        return StopwatchView::fromModel($stopwatch);
+        return StopwatchView::fromForm($input, $offset);
+    }
+    public function fromModel()
+    {
+        return StopwatchView::fromModel($this->stopwatch);
     }
 }

@@ -10,6 +10,6 @@ class Countdown extends Timer
 
     public function getViewFactory()
     {
-        return new CountdownViewFactory;
+        return new CountdownViewFactory($this);
     }
 }

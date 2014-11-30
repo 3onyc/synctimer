@@ -20,6 +20,10 @@ Route::post('/timers/{timers}/reset', [
     'uses' => 'TimerController@resetStopwatch'
 ]);
 
+Route::put('/timezone', [
+    'uses' => 'TimezoneController@setTimezone'
+]);
+
 Route::get('/login', [
     'uses' => 'AuthController@showLogin',
     'as' => 'login',

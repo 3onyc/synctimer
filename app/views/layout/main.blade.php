@@ -39,6 +39,15 @@
       <script>
         $(document).foundation();
       </script>
+
+      <script>
+        (function($) {
+          $.post('/timezone', {
+            offset: (new Date()).getTimezoneOffset(),
+            _method: 'put'
+          });
+        })(jQuery);
+      </script>
     @show
   </body>
 </html>
