@@ -13,7 +13,7 @@
       <table>
         <thead>
           <tr>
-            <th><i class='fi-lock'></i></th>
+            <th><i class='fi-eye'></i></th>
             <th>Name</th>
             <th>Type</th>
             <th>Start/Stop Time</th>
@@ -24,7 +24,7 @@
         @foreach ($timers as $timer)
           <tr>
             <td>
-              @if ($timer->private)
+              @if (!$timer->private)
                 <i class='fi-check'></i>
               @else
                 <i class='fi-x'></i>
