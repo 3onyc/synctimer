@@ -22,7 +22,12 @@
           </tr>
         </thead>
         @foreach ($timers as $timer)
-          <tr>
+          <tr class='timer-container'
+              data-timer
+              data-timer-name='{{ $timer->name }}'
+              data-timer-target='{{ $timer->target }}'
+              data-timer-type='{{ $timer->type }}'
+          >
             <td>
               @if (!$timer->private)
                 <i class='fi-check'></i>
@@ -36,17 +41,8 @@
               </a>
             </td>
             <td>{{ $timer->type }}</td>
-            <td>
-              {{ $timer->target }}
-            </td>
-            <td class='timer-container'
-                data-timer
-                data-timer-name='{{ $timer->name }}'
-                data-timer-target='{{ $timer->target }}'
-                data-timer-type='{{ $timer->type }}'
-            >
-              <span class='timer'>
-            </td>
+            <td class='target'></td>
+            <td class='timer'></td>
             <td>
               <a href='{{ action("TimerController@edit", $timer->id) }}'>
                 <i class='fi-pencil'></i>
