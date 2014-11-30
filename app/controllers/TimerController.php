@@ -53,7 +53,9 @@ class TimerController extends BaseController
             return $this->create($validator->messages());
         }
 
-        $timer = Timer::fromInput($input);
+        $timer = Timer::factory($input['type']);
+        $timer->fillFromForm($input);
+
         Auth::user()->timers()->save($timer);
 
         return Redirect::to(action('TimerController@show', $timer->id));
@@ -74,7 +76,7 @@ class TimerController extends BaseController
         }
 
         return View::make('timer.show', [
-            'timer' => $timer
+            'timer' => $timer->view()
         ]);
     }
 
@@ -89,7 +91,7 @@ class TimerController extends BaseController
     {
         $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
 
-        Session::flashInput($timer->getFormData());
+        Session::flashInput($timer->toForm());
         return View::make('timer.edit', [
             'errors' => $errors ?: new MessageBag,
             'id' => $timer->id
@@ -111,11 +113,11 @@ class TimerController extends BaseController
 
         $validator = TimerFormValidator::make($input);
         if ($validator->fails()) {
-            Session::flashInput($timer->getFormData());
+            Session::flashInput($input);
             return $this->edit($id, $validator->messages());
         }
 
-        $timer->fillFromInput($input);
+        $timer->fillFromForm($input);
         $timer->save();
 
         return Redirect::to(action('TimerController@show', $timer->id));
@@ -145,21 +147,18 @@ class TimerController extends BaseController
      */
     public function resetStopwatch($id)
     {
-        $timer = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
-        if (! $timer instanceof Stopwatch) {
+        $stopwatch = Auth::user()->timers()->where('id', '=', $id)->firstOrFail();
+        if (! $stopwatch instanceof Stopwatch) {
             App::abort(400);
         }
 
-        $timer->reset();
+        $stopwatch->reset();
 
-        return Redirect::to(action('TimerController@show', $timer->id));
+        return Redirect::to(action('TimerController@show', $stopwatch->id));
     }
 
     protected function getInput()
     {
-        $input = Input::only(static::$fields);
-        $input['private'] = isset($input['private']);
-
-        return $input;
+        return Input::only(static::$fields);
     }
 }

@@ -1,5 +1,6 @@
 var Timer = require('./Timer'),
-    TimerRenderer = require('./TimerRenderer');
+    TimerRenderer = require('./TimerRenderer'),
+    BigTimerRenderer = require('./BigTimerRenderer');
 
 function MultiTimerRenderer()
 {
@@ -12,7 +13,13 @@ MultiTimerRenderer.fromPage = function() {
 
 	$("*[data-timer]").each(function() {
 		var timer = Timer.FromElement(this),
-			renderer = new TimerRenderer(timer, this, $(this).is('[data-timer-big]'));
+            renderer;
+
+        if ($(this).is('[data-timer-big]')) {
+			renderer = new BigTimerRenderer(timer, this);
+        } else {
+			renderer = new TimerRenderer(timer, this);
+        }
 
 		multiRenderer.add(renderer);
 	});

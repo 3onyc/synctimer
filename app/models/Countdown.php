@@ -1,26 +1,15 @@
 <?php
+use Carbon\Carbon;
+
 class Countdown extends Timer
 {
-    public function getFormData()
+    public function __construct()
     {
-        list($target_date, $target_time) = explode(" ", $this->target);
-
-        return [
-            'name' => $this->name,
-            'type' => $this->type,
-            'private' => $this->private,
-            'target_date' => $target_date,
-            'target_time' => $target_time
-        ];
+        $this->target = Carbon::now();
     }
 
-    public function fillFromInput(array $input)
+    public function getViewFactory()
     {
-        $input['target'] = DateTime::createFromFormat(
-            "Y-m-d H:i:s",
-            $input['target_date'] . ' ' . $input['target_time']
-        );
-
-        $this->fill($input);
+        return new CountdownViewFactory;
     }
 }

@@ -36,16 +36,33 @@ class Timer extends Eloquent
         throw new RuntimeException(sprintf("Unknown timer type '%s'", $type));
     }
 
-    public static function fromInput(array $input)
+    public function fillFromForm(array $input)
     {
-        $timer = self::factory($input['type']);
-        $timer->fillFromInput($input);
+        return $this->getViewFactory()->fill($this, $input);
+    }
 
-        return $timer;
+    public function toForm()
+    {
+        return $this->getViewFactory()->forForm($this);
+    }
+
+    public function view()
+    {
+        return $this->getViewFactory()->fromModel($this);
+    }
+
+    public function getViewFactory()
+    {
+        throw new RuntimeException("Not Implemented!");
     }
 
     public function user()
     {
         return $this->belongsTo('User');
+    }
+
+    public function getDates()
+    {
+        return ['created_at', 'updated_at', 'target'];
     }
 }
