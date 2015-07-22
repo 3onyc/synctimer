@@ -8,7 +8,8 @@ class UserTableSeeder extends Seeder
 
         User::create([
             'username' => 'admin',
-            'password' => Hash::make('toor')
+            'password' => Hash::make('toor'),
+            'email' => 'admin@localhost'
         ]);
 	}
 }

@@ -9,7 +9,8 @@ class TestTimerSeeder extends Seeder
         Timer::create([
             'name' => 'foobar',
             'type' => Timer::STOPWATCH,
-            'target' => new DateTime
+            'target' => new DateTime(),
+            'user_id' => 1
         ]);
 	}
 }
